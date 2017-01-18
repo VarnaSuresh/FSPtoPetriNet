@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<animation width="256" height="256">
+  <draw>
+    <include src="copter.xml">
+      <param name="rotor_state" value="started"/>
+    </include>
+  </draw>
+</animation>
+

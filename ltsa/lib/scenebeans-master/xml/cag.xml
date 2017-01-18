@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<!--
+  
+  This animation demonstrates the different CAG operations supported
+  by the SceneBeans framework.
+  
+-->
+
+<animation width="224" height="320">
+  <define id="circle">
+    <primitive type="circle">
+      <param name="radius" value="32"/>
+    </primitive>
+  </define>
+  
+  <define id="diamond">
+    <transform type="rotate">
+      <param name="angle" value="pi/4"/>
+      <primitive type="rectangle">
+        <param name="x" value="-26"/>
+        <param name="y" value="-26"/>
+        <param name="width" value="52"/>
+        <param name="height" value="52"/>
+      </primitive>
+    </transform>
+  </define>
+  
+  <draw>
+    <style type="RGBAColor">
+      <param name="color" value="ff0000"/> 
+      
+      <transform type="translate">
+        <param name="translation" value="(64,160)"/>
+        <compose type="union">
+          <paste object="diamond"/>
+          <paste object="circle"/>
+        </compose>
+      </transform>
+      
+      <transform type="translate">
+        <param name="translation" value="(160,160)"/>
+        <compose type="intersect">
+          <paste object="diamond"/>
+          <paste object="circle"/>
+        </compose>
+      </transform>
+      
+      <transform type="translate">
+        <param name="translation" value="(64,256)"/>
+        <compose type="subtract">
+          <paste object="diamond"/>
+          <paste object="circle"/>
+        </compose>
+      </transform>
+      
+      <transform type="translate">
+        <param name="translation" value="(160,256)"/>
+        <compose type="difference">
+          <paste object="diamond"/>
+          <paste object="circle"/>
+        </compose>
+      </transform>
+    </style>
+  </draw>
+</animation>
+

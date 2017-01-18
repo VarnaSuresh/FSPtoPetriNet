@@ -1,0 +1,266 @@
+-- TODO ----
+
+* Fix null pointer exception when animation does not have width/height
+
+* Sort out serialisation.  Write test code for serialisation.
+
+* Add audio support, using audio-clips as activities, announcing
+  events when the playback of the clip has finished
+
+* Add a general path bean that composes the outlines of its descendents 
+  into a single path.  Write various line classes (arc, spline etc) that
+  can be used to make paths.
+
+
+-- DONE ----
+
+Changes to the SceneBeans library since its first internal 
+release, most recent change first...
+
+* Added Javadoc comments everywhere.
+
+* Fixed a bug in the CAG code that also used up too much CPU.
+
+* Fixed a bug in some of the behaviour beans that used up too
+  much CPU.
+
+* Changed the parser to evaluate expressions for integer values,
+  including parameter indices.  This is useful when using <forall>
+  tags to define indexed parameters.
+
+* Got rid of the DTD altogether.  Verification is now handled
+  completely by the XMLAnimationParser class.  Changed the
+  parser to accept <forall> tags almost everywhere.
+
+* Re-versioned the DTD to 1.0 and changed the Locator to
+  only locate this new version of the DTD.
+
+* Created a behaviour adapter for the text property of
+  Text beans that can be wired to double or string
+  behaviours.
+
+* Created StringBehaviour and StringBehaviourListener
+  interfaces, and the StringBehaviourBase abstract class.
+
+* Made the getSymbol and getSymbols methods of the
+  XMLAnimationParser class public, so that applications
+  can connect with animation beans in application-specific
+  ways.
+
+* Removed the <image...> tag from the DTD.  The DTD is now
+  orthogonal w.r.t. all scene beans.
+
+* Wrote a new primitive bean, Sprite, that uses Toolkit.loadImage 
+  and Toolkit.prepareImage to load images.  This bean acts as
+  an ImageObserver, marking itself dirty as appropriate.  This
+  lets it display animated gifs etc.  Also, it is serialisable,
+  which the FilledImage class wasn't.
+
+-- released to jnm
+
+* Modified getShape method of FilledImage bean to fix dirty
+  rectangle bug.
+
+* Fixed stupid bug in RandomTimer behaviour bean. Mea culpa!
+
+-- released to jnm
+
+* Added support for extending the bean namespace from within
+  XML documents using the <?scenebeans ...?> XML processing
+  instruction.  This allows new packages of scene and
+  behaviour beans to be introduced on the fly, even if they
+  are defined in different code bases!  Put one or more PIs
+  before the <animation>...</animation> element.  Usage:
+  <?scenebeans category="{scene|behaviour}"
+               codebase=<url-of-jar-or-classes>
+               package=<package-containing-beans> ?>
+  
+  Also changed the support for adding application-specific
+  bean packages to the parser.  The XMLAnimationParser now
+  has methods addBehaviourPackage and addScenePackage.
+
+* Fixed a parsing bug.
+
+* Made the putSymbol method of the XMLAnimationParser class
+  public, so that applications can create an initial set of
+  application-specific symbols before parsing (ie: behaviours
+  fed from the user interface etc.).
+
+-- released to jnm
+
+* Added "x" and "y" facets to the MouseMotion bean.
+
+* Made the XML parser more robust to unexpected nodes.  It now
+  ignores them, rather than failing with a ClassCastException.
+
+* Added the uk.ac.ic.doc.scenebeans.input package to contain
+  event handlers that dispatch user-interface events to input
+  beans in a scene graph.  Added the MouseDispatcher class to
+  this package to dispatch mouse events to MouseClick and
+  MouseMotion scene beans.  Changed the Animator class to use
+  a MouseDispatcher rather that handle mouse events itself.
+  
+* Added MouseMotion input bean that turns mouse motion into point
+  and double (angle) behaviours.
+
+* Changed the RandomTimer behaviour so that the minimum and maximum
+  duration can be specified.
+
+* Changed the DTD and parser to support the extended behaviour model.
+  The parser is backwardly compatible, but emits warnings if the old 
+  DTD identifier is used.
+  
+* Changed the parser to allow behaviour beans to export multiple, 
+  named, typed behaviour "facets".
+  
+* Renamed packages from nat.scene2d... to uk.ac.ic.doc.scenebeans... 
+  and nat.util to uk.ac.ic.doc.natutil
+
+* Fixed bug in AnimationCanvas class that did not update the screen
+  when the animation was centered/stretched/"aspected".
+
+* Changed the CAGComposite class and various support classes in
+  the nat.scene2d.cag package to remove bug that caused CAG
+  composites to be drawn every frame even when they were not
+  dirty.  The CAGComposite class is now even *more* of a sneaky
+  hack, but is easier to understand: *I* can understand how it works
+  at last, and I'm the developer!
+
+* Changed the SceneGraphProcessor to *not* throw Exceptions from its
+  methods, and similarly for the accept method of the SceneGraph
+  interface.
+
+-- released to jnm
+
+* Fixed some bugs in the dirty-rectangle caching algorithm.
+
+-- released to jnm
+
+* Added a timingAdaptive property to the AnimationCanvas
+  class.  Setting it to true uses an adaptive timing
+  algorithm.  Setting it to false uses a simple timing
+  algorithm in which each frame can last longer than the
+  FrameDelay property but is simulated as if it lasted 
+  exactly as long as the FrameDelay.  It defaults to
+  false.
+
+* Added a stop() method to the AnimationCanvas class to
+  stop the runner thread.  Made the runner thread *not*
+  a daemon.
+
+-- released to jnm
+
+* Changed the public identifier of the DTD. Added code to
+  output warnings when the old, deprecated, identifier is
+  used.
+
+* Changed the Null bean so that it does not double-dispatch
+  to SceneGraphProcessors.  Previously it dispatched itself
+  as a Primitive that had an empty area as a shape.  The new
+  implementation is much simpler, and works better with the
+  dirty-rectangle algorithm.
+  
+* Improved the dirty-rectangle caching algorithm to be
+  be more dynamic.  Now it redraws only those parts of
+  the graph that have actually changed between two frames,
+  rather than all parts that could possibly change between
+  any frame.
+  
+* Changed the public identifier of the SceneBeans DTD.
+  The old identifier is now deprecated, but is still
+  parsed correctly (a warning is output to System.err).
+
+* Added Jeff's behaviour beans to the nat.scene2d.behaviour
+  package.
+
+-- released to jnm
+
+* Add scaling/stretching to the animation canvas, and an
+  option to maintain the aspect ratio of the animation.
+  Implemented the nat.scene2d.animation.WindowTransform
+  class to encapsulate these operations in a single
+  Transform node. (cunning design!) 
+
+* Improved graphics performance using bounding boxes and
+  dirty rectangle caching.
+
+* Changed the name of _activity_names to _event_names in
+  the Animation class.  The new name describes its use much
+  better.
+
+* Added support for constructive area geometry (CAG).  Created
+  a package (nat.scene2d.cag) of SceneGraphProcessors that
+  perform CAG on scene graphs.  Created composite scene graph
+  nodes that use each processor to perform CAG on their
+  subgraphs.
+
+-- released to jnm + student group project
+
+* Added support for the Java Extensions Framework to the jar files.
+  E.g. the animator.jar specifies its dependency on scene2d.jar
+  and scene2d.jar specifies its dependency on natutil.jar, and the
+  JVM follows the dependency links to automatically load all the
+  required JAR files.  This makes the CLASSPATH much shorter.
+
+* Renamed lib/scene2d_demos.jar to lib/animator.jar
+
+* Changed the parser to load the DTD from a resource identified by
+  a public identifier, rather than from a system URL.
+
+* Renamed Sprite to Animation, renamed the sprite package to animation.
+  Renamed nat.scene2e.sprite.parse.XMLSpriteParser to 
+  nat.scene2d.animation.parse.XMLAnimationParser.  Similarly, 
+  SpriteParseException is renamed to AnimationParseException.
+
+* Created a package nat.scene2d.event to hold interfaces and classes
+  relating to events fired by scene beans, activities and sprites.
+  Moved ActivityEvent classes into the event package and renamed to
+  AnimationEvent, etc.
+
+* Implemented the nat.scene2d.MouseClick input-bean that converts 
+  mouse-press and mouse-release events into activity events.
+
+* Implemented the nat.scene2d.pick.Picker class: a SceneGraphProcessor
+  that finds the path though the scene-graph to the primitive shape
+  containing a given point.
+
+* Added an Input SceneBean interface to represent portions of the 
+  graph that are sensitive to particular forms of user input.  
+  Added a double-dispatch method for Input beans to the
+  SceneGraphProcessor interface.
+
+* Redesigned the CompositeNode interface to allow composite graphs
+  to be created polymorphicaly.  Renamed the methods to be more in
+  line with other SceneBeans classes.  Modified the CompositeBase,
+  Layered and Switch classes to implement the new interface.
+  Deleted the Over class.
+
+* Changed the getShape method of the Primitive class to take a
+  Graphics2D parameter.  This is to allow the Text primitive
+  to access the Font and FontRenderContext of the display and 
+  thereby generate the correct outline of its text glyphs.
+
+* Redesigned the Style interface and class.  The Style interface
+  now has a changeStyle method that changes the style of a
+  Graphics2D context and returns a Memento [GoF], of type Style.Old,
+  that can be used to restore the old style.  The draw method is
+  now implemented in the StyleBase class, and has been removed from
+  derived style classes.  The PaintStyleBase class has been removed.
+
+* Removed filledXXX and outlinedXXX primitive shapes. 
+
+* Added a getShape method to the Primitive interface. Added
+  filled property to the PrimitiveBase class. Moved the
+  draw method implementation from primitives into PrimitiveBase
+  class; draw gets the shape and either fills or draws it
+  depending on the filled property.
+
+* Renamed NullLeaf to Null.  Removed <null/> tag from parser 
+  and DTD.  Instead instantiate a "null" bean, as in:
+    <primitive type="null"/>
+
+* Renamed LeafNode to Primitive and LeafBase to PrimitiveBase
+
+* Created SceneGraphBase class
+
+-- first internal release

@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<animation width="512" height="512">
+
+<seq id="move">
+  <co>
+    <forall var="N" values="0,1,2,3,4,5,6,7" sep=",">
+      <behaviour algorithm="move" id="move-1-${N}">
+        <param name="from" value="0"/>
+        <param name="to" value="32*${N}"/>
+        <param name="duration" value="1"/>
+      </behaviour>
+    </forall>
+  </co>
+  <co>
+    <forall var="N" values="0,1,2,3,4,5,6,7" sep=",">
+      <behaviour algorithm="move" id="move-2-${N}">
+        <param name="from" value="32*${N}"/>
+        <param name="to" value="32*7"/>
+        <param name="duration" value="1"/>
+      </behaviour>
+    </forall>
+  </co>
+  <forall var="N" values="0,1,2,3,4,5,6,7" sep=",">
+    <behaviour algorithm="move" id="move-3-${N}">
+      <param name="from" value="32*7"/>
+      <param name="to" value="0"/>
+      <param name="duration" value="1"/>
+    </behaviour>    
+  </forall>
+</seq>
+
+<define id="item">
+  <primitive type="polygon">
+    <param name="pointCount" value="16"/>
+    <forall var="P" values="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" sep=",">
+      <param name="points" index="${P}" value="( 32*cos(2*pi/${P}), 32*sin(2*pi/${P}) )"/>
+    </forall>
+  </primitive>
+</define>
+
+<draw>
+  <forall var="N" values="0,1,2,3,4,5,6,7" sep=",">
+    <transform type="translate">
+      <param name="translation" value="(0,256)"/>
+      <animate param="x" behaviour="move-1-${N}"/>
+      <animate param="x" behaviour="move-2-${N}"/>
+      <animate param="x" behaviour="move-3-${N}"/>
+      
+      <style type="RGBAColor" id="color-${N}">
+        <param name="color" value="0000ff88"/>
+        <paste object="item"/>
+      </style>
+    </transform>
+  </forall>
+</draw>
+
+<command name="Start">
+  <start behaviour="move"/>
+</command>
+<command name="Reset">
+  <reset behaviour="move"/>
+</command>
+
+</animation>

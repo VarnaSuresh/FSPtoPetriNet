@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<animation width="512" height="512">
+
+<draw>
+  <forall var="N" values="0,1,2,3,4,5,6,7" sep=",">
+    <input type="mouseMotion" id="drag-${N}">
+      <param name="active" value="false"/>
+      
+      <transform type="translate">
+        <param name="translation" value="(32,32)"/>
+        <animate param="translation" behaviour="drag-${N}" facet="position"/>
+        
+        <style type="RGBAColor" id="color-${N}">
+          <param name="color" value="0000ff88"/>
+          <input type="mouseClick" id="click-${N}">
+            <param name="pressedEvent" value="pressed"/>
+            <param name="releasedEvent" value="released"/>
+            
+            <primitive type="circle">
+              <param name="radius" value="16"/>
+            </primitive>
+          </input>
+        </style>
+      </transform>
+    </input>
+  </forall>
+</draw>
+
+<forall var="N" values="0 1 2 3 4 5 6 7">
+  <event object="click-${N}" event="pressed">
+    <set object="drag-${N}" param="active" value="true"/>
+    <announce event="clicked-${N}"/>
+  </event>
+  <event object="click-${N}" event="released">
+    <set object="drag-${N}" param="active" value="false"/>
+    <announce event="released-${N}"/>
+  </event>
+</forall>
+
+<command name="Green Discs">
+  <forall var="N" values="0 1 2 3 4 5 6 7">
+    <set object="color-${N}" param="color" value="00ff0088"/>
+  </forall>
+</command>
+<command name="Blue Discs">
+  <forall var="N" values="0 1 2 3 4 5 6 7">
+    <set object="color-${N}" param="color" value="0000ff88"/>
+  </forall>
+</command>
+<command name="Red Discs">
+  <forall var="N" values="0 1 2 3 4 5 6 7">
+    <set object="color-${N}" param="color" value="ff000088"/>
+  </forall>
+</command>
+
+</animation>

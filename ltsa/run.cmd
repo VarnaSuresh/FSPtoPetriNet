@@ -1,0 +1,1 @@
+java -Xmx1g -Ddebug="false" -Dwarning="true" -Dcontrol-flow="false" -Dames-learning-ui="lstar.ltsa.SETCompositionalLearningUI" -Dames-interface-learning-ui="lstar.interfaces.InterfaceLearningUI" -cp .;lib/ltsa.jar;lib/LTL2Buchi.jar;lib/scenebeans.jar;lib/LTL2Buchi.jar ui.HPWindow

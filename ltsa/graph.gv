@@ -1,0 +1,35 @@
+digraph G {
+subgraph place {
+graph [shape=circle,color=gray];
+node [shape=circle,fixedsize=true,width=2];
+1;
+0 [image="dot .png" label="
+
+
+0"];
+0;
+3;
+2;
+}
+subgraph transitions {
+node [shape=rect,height=0.2,width=2];
+inc0;
+inc1;
+dec;
+dec0;
+dec1;
+inc;
+} 
+2->dec;
+dec->1;
+3->dec0;
+dec0->2;
+1->dec1;
+dec1->0;
+1->inc;
+inc->2;
+0->inc0;
+inc0->1;
+2->inc1;
+inc1->3;
+}

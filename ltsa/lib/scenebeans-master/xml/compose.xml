@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<!--
+  
+  This animation demonstrates the different composition operations supported
+  by the SceneBeans framework.  A static circle is composed with an animated
+  rectangle by the operations "layered", "union", "intersect", "subtract",
+  and "difference".  Selection between the different operations is
+  performed by the "switch" composition operator.
+  
+-->
+
+<animation width="256" height="256">
+  <behaviour id="wiggle" algorithm="bounce" state="started">
+    <param name="from" value="-192"/>
+    <param name="to" value="64"/>
+    <param name="duration" value="2"/>
+  </behaviour>
+  
+  <define id="circle">
+    <primitive type="circle">
+      <param name="radius" value="64"/>
+    </primitive>
+  </define>
+
+  <define id="rect">
+    <style type="RGBAColor">
+      <param name="color" value="0000ff"/>
+      <primitive type="rectangle">
+        <param name="x" value="-128"/>
+        <param name="y" value="-32"/>
+        <param name="width" value="128"/>
+        <param name="height" value="64"/>
+        <animate param="x" behaviour="wiggle"/>
+      </primitive>
+    </style>
+  </define>
+  
+  <draw>
+    <style type="RGBAColor">
+      <param name="color" value="ff0000"/> 
+      <transform type="translate">
+        <param name="translation" value="(128,128)"/>
+        
+        <compose type="switch" id="show">
+          <compose type="layered">
+            <paste object="circle"/>
+            <paste object="rect"/>
+          </compose>
+          <compose type="union">
+            <paste object="circle"/>
+            <paste object="rect"/>
+          </compose>
+          <compose type="intersect">
+            <paste object="circle"/>
+            <paste object="rect"/>
+          </compose>
+          <compose type="subtract">
+            <paste object="circle"/>
+            <paste object="rect"/>
+          </compose>
+          <compose type="difference">
+            <paste object="circle"/>
+            <paste object="rect"/>
+          </compose>
+        </compose> <!-- switch -->    
+      </transform>
+    </style>
+  </draw>
+  
+  <command name="Show Layered">
+    <set object="show" param="current" value="0"/>
+  </command>
+  <command name="Show Union">
+    <set object="show" param="current" value="1"/>
+  </command>
+  <command name="Show Intersect">
+    <set object="show" param="current" value="2"/>
+  </command>
+  <command name="Show Subtract">
+    <set object="show" param="current" value="3"/>
+  </command>
+  <command name="Show Difference">
+    <set object="show" param="current" value="4"/>
+  </command>
+</animation>
+

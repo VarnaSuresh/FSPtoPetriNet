@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<animation width="432" height="279">
+
+<draw>
+  <input type="mouseMotion" id="drag">
+    <transform type="translate">
+      <param name="translation" value="(200,100)"/>
+      <animate param="translation" behaviour="drag" facet="position"/>
+      <primitive type="sprite">
+        <param name="src" value="angelfish.gif"/>
+        <param name="hotspot" value="(30,55)"/>
+      </primitive>
+    </transform>
+  </input>
+  <primitive type="sprite">
+    <param name="src" value="underwater.jpg"/>
+  </primitive>
+</draw>
+
+</animation>

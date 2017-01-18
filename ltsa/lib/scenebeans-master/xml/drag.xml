@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<animation width="512" height="512">
+
+<draw>
+  <input type="mouseMotion" id="mouse">
+    <param name="dragged" value="false"/>
+    
+    <transform type="translate">
+      <animate param="x" behaviour="mouse" facet="x"/>
+      <primitive type="polygon">
+        <param name="pointCount" value="4"/>
+        <param name="points" index="0" value="(-4,0)"/>
+        <param name="points" index="1" value="(0,8)"/>
+        <param name="points" index="2" value="(4,0)"/>
+      </primitive>
+      <transform type="translate">
+        <param name="translation" value="(6,10)"/>
+        <primitive type="text">
+          <animate param="text" behaviour="mouse" facet="x"/>
+        </primitive>
+      </transform>
+    </transform>
+    
+    <transform type="translate">
+      <animate param="y" behaviour="mouse" facet="y"/>
+      <primitive type="polygon">
+        <param name="pointCount" value="4"/>
+        <param name="points" index="0" value="(0,-4)"/>
+        <param name="points" index="1" value="(8,0)"/>
+        <param name="points" index="2" value="(0,4)"/>
+      </primitive>
+      <transform type="translate">
+        <param name="translation" value="(2,16)"/>
+        <primitive type="text">
+          <animate param="text" behaviour="mouse" facet="y"/>
+        </primitive>
+      </transform>
+    </transform>
+  </input>
+  
+  
+  <transform type="translate">
+    <param name="translation" value="(256,256)"/>
+    
+    <transform type="translate">
+      <param name="translation" value="(-128,0)"/>
+      <input type="mouseMotion" id="point-1">
+        <param name="dragged" value="false"/>
+        <transform type="rotate">
+          <animate param="angle" behaviour="point-1" facet="angle"/>
+         
+          <style type="RGBAColor">
+            <param name="color" value="ff0000"/>
+            <primitive type="polygon">
+              <param name="pointCount" value="4"/>
+              <param name="points" index="0" value="(0,-4)"/>
+              <param name="points" index="1" value="(4,0)"/>
+              <param name="points" index="2" value="(0,64)"/>
+              <param name="points" index="3" value="(-4,0)"/>
+            </primitive>  
+          </style>
+        </transform>
+      </input>  
+    </transform>
+    
+    <transform type="translate">
+      <param name="translation" value="(128,0)"/>
+      <input type="mouseMotion" id="point-2">
+        <param name="dragged" value="true"/>
+        <transform type="rotate">
+          <animate param="angle" behaviour="point-2" facet="angle"/>
+          
+          <style type="RGBAColor">
+            <param name="color" value="ff0000"/>
+            <primitive type="polygon">
+              <param name="pointCount" value="4"/>
+              <param name="points" index="0" value="(0,-4)"/>
+              <param name="points" index="1" value="(4,0)"/>
+              <param name="points" index="2" value="(0,64)"/>
+              <param name="points" index="3" value="(-4,0)"/>
+            </primitive>
+          </style>
+        </transform>
+      </input>
+    </transform>
+    
+    <input type="mouseMotion" id="drag">
+      <transform type="translate">
+        <animate param="translation" behaviour="drag" facet="position"/>
+        
+        <style type="RGBAColor">
+          <param name="color" value="0000ff"/>
+          <primitive type="circle">
+            <param name="radius" value="16"/>
+          </primitive>  
+        </style>
+      </transform>
+    </input>
+  </transform>
+</draw>
+  
+</animation>

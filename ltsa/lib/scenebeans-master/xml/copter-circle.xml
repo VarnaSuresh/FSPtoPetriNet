@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<animation width="256" height="256">
+
+<behaviour id="turn" algorithm="loop">
+  <param name="from" value="0"/>
+  <param name="to" value="2*pi"/>
+  <param name="duration" value="10"/>
+</behaviour>
+
+
+<define id="copter">
+  <transform type="scale">
+    <param name="x" value="0.2" />
+    <param name="y" value="0.2" />
+    
+    <include src="copter.xml" id="copter_inc">
+      <param name="rotor_state" value="started"/>
+    </include>
+  </transform>
+</define>
+
+
+<draw>
+  <transform type="rotate">
+    <param name="angle" value="0" />
+    <animate param="angle" behaviour="turn" />
+      
+    <transform type="translate" id="pasted_copter">
+      <param name="y" value="-100"/>
+      <paste object="copter" />
+    </transform>
+  </transform>
+  
+  <switch>
+    <style type="RGBAColor">
+      <param name="color" value="0000ff"/>
+
+      <primitive type="circle">
+        <param name="radius" value="16"/>
+      </primitive>
+    </style>
+    <null/>
+  </switch>
+</draw>
+
+<command name="flight.start">
+  <reset behaviour="turn" />
+  <start behaviour="turn" />
+</command>
+
+<command name="flight.hover">
+  <stop behaviour="turn" />
+</command>
+
+<command name="flight.resume">
+  <start behaviour="turn" />
+</command>
+
+
+
+</animation>

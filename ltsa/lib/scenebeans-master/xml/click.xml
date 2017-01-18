@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<animation width="64" height="64">
+  <draw>
+    <input type="mouseClick" id="click">
+      <param name="pressedEvent" value="pressed"/>
+      <param name="releasedEvent" value="released"/>
+      
+      <style type="RGBAColor">
+        <param name="color" value="ff0000"/>
+        <primitive type="rectangle">
+          <param name="x" value="2"/>
+          <param name="y" value="2"/>
+          <param name="width" value="60"/>
+          <param name="height" value="60"/>
+        </primitive>
+      </style>
+    </input>
+  </draw>
+  
+  <event object="click" event="pressed">
+    <announce event="pressed"/>
+  </event>
+  
+  <event object="click" event="released">
+    <announce event="released"/>
+  </event>
+</animation>

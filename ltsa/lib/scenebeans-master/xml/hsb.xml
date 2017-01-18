@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<!--
+  
+  This animation demonstrates the use of HSBA color space.
+  
+-->
+
+<animation width="128" height="128">
+  
+  <behaviour id="anim.hue" algorithm="Loop">
+    <param name="from" value="0"/>
+    <param name="to" value="1"/>
+    <param name="duration" value="11"/>
+  </behaviour>
+  <behaviour id="anim.saturation" algorithm="Loop">
+    <param name="from" value="1"/>
+    <param name="to" value="0"/>
+    <param name="duration" value="4"/>
+  </behaviour>
+  <behaviour id="anim.brightness" algorithm="Loop">
+    <param name="from" value="1"/>
+    <param name="to" value="0"/>
+    <param name="duration" value="4"/>
+  </behaviour>
+  <behaviour id="anim.alpha" algorithm="Loop">
+    <param name="from" value="1"/>
+    <param name="to" value="0"/>
+    <param name="duration" value="4"/>
+  </behaviour>
+  
+  <draw>
+    <style id="color" type="HSBAColor">
+      <param name="hue" value="0"/>
+      <animate param="hue" behaviour="anim.hue"/>
+      <param name="saturation" value="1.0"/>
+      <animate param="saturation" behaviour="anim.saturation"/>
+      <param name="brightness" value="1.0"/>
+      <animate param="brightness" behaviour="anim.brightness"/>
+      <param name="alpha" value="0.5"/>
+      <animate param="alpha" behaviour="anim.alpha"/>
+      
+      <primitive type="rectangle">
+        <param name="x" value="32"/>
+        <param name="y" value="32"/>
+        <param name="width" value="64"/>
+        <param name="height" value="64"/>
+      </primitive>
+    </style>
+    
+    <style type="HSBAColor">
+      <param name="brightness" value="0"/>
+      
+      <primitive type="rectangle">
+        <param name="x" value="48"/>
+        <param name="y" value="48"/>
+        <param name="width" value="32"/>
+        <param name="height" value="32"/>
+      </primitive>
+    </style>
+
+  </draw>
+  
+  <command name="Start Hue Animation">
+    <start behaviour="anim.hue"/>
+  </command>
+  <command name="Start Saturation Animation">
+    <start behaviour="anim.saturation"/>
+  </command>
+  <command name="Start Brightness Animation">
+    <start behaviour="anim.brightness"/>
+  </command>
+  <command name="Start Opacity Animation">
+    <start behaviour="anim.alpha"/>
+  </command>
+  
+  <command name="Stop Hue Animation">
+    <stop behaviour="anim.hue"/>
+    <set object="color" param="hue" value="0.0"/>
+  </command>
+  <command name="Stop Saturation Animation">
+    <stop behaviour="anim.saturation"/>
+    <set object="color" param="saturation" value="1.0"/>
+  </command>
+  <command name="Stop Brightness Animation">
+    <stop behaviour="anim.brightness"/>
+    <set object="color" param="brightness" value="1.0"/>
+  </command>
+  <command name="Stop Opacity Animation">
+    <stop behaviour="anim.alpha"/>
+    <set object="color" param="alpha" value="1.0"/>
+  </command>
+</animation>

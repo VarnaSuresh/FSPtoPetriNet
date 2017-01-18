@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="bin" path="src"/>
+	<classpathentry kind="src" path="lib/scenebeans-master/src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/LTL2Buchi.jar"/>
+	<classpathentry kind="lib" path="lib/scenebeans.jar"/>
+	<classpathentry kind="lib" path="lib/jel-2.1.1/lib/jel.jar"/>
+	<classpathentry kind="lib" path="lib/xml.jar"/>
+	<classpathentry kind="lib" path="lib/ant_parser.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

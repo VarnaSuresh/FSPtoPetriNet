@@ -1,0 +1,29 @@
+digraph G {
+ start; 
+ end; 
+subgraph cluster1{
+subgraph transitions{
+node [shape=rect,height=0.2,width=2];
+temp1;
+}
+}
+subgraph cluster2{
+subgraph transitions{
+node [shape=rect,height=0.2,width=2];
+temp2;
+}
+}
+subgraph cluster3{
+subgraph transitions{
+node [shape=rect,height=0.2,width=2];
+temp3;
+}
+}
+start->cluster1;
+
+cluster1->cluster2;
+
+cluster2->cluster3;
+
+cluster3->end;
+}
